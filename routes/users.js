@@ -1,12 +1,14 @@
 const router = require('express').Router(); // создали роутер
 const {
-  getUsers, getUserId, createUser, updateUserProfile, updateUserAvatar,
+  getUsers, getUserId, createUser, updateUserProfile, updateUserAvatar, login,
 } = require('../controllers/users');
+const auth = require('../middlewares/auth');
 
-router.get('/:id', getUserId);
-router.patch('/me', updateUserProfile);
-router.patch('/me/avatar', updateUserAvatar);
-router.get('/', getUsers);
-router.post('/', createUser);
+router.post('/signin', login);
+router.post('/signup', createUser);
+router.get('/:id', auth, getUserId);
+router.patch('/me', auth, updateUserProfile);
+router.patch('/me/avatar', auth, updateUserAvatar);
+router.get('/', auth, getUsers);
 
 module.exports = router; // экспортировали роутер
