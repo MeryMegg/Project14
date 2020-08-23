@@ -26,13 +26,18 @@ module.exports.createCard = (req, res) => {
 };
 
 module.exports.deleteUserId = (req, res) => {
-  Card.findByIdAndRemove(req.params.id)
+  Card.findById(req.params.id)
+    .populate('owner')
     .then((card) => {
       if (!card) {
         res.status(404).send({ message: 'Карточка не найдена' });
         return;
       }
-      res.send({ data: card });
+      if (card.owner.id !== req.user._id) {
+        res.status(401).send({ message: 'Удалить можно только свою карточку' });
+      }
+
+      Card.deleteOne(card).then(() => res.send({ data: card }));
     })
     .catch(() => {
       res.status(500).send({ message: 'На сервере произошла ошибка' });
