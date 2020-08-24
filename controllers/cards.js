@@ -36,6 +36,7 @@ module.exports.deleteUserId = (req, res) => {
       }
       if (card.owner.id !== req.user._id) {
         res.status(401).send({ message: 'Удалить можно только свою карточку' });
+        return;
       }
 
       Card.deleteOne(card).then(() => res.send({ data: card }));

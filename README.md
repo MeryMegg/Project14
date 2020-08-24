@@ -43,6 +43,7 @@
 - [Validator](https://www.npmjs.com/package/validator)
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [helmet](https://www.npmjs.com/package/helmet)
 
 ## Инструкция по запуску проекта
 
